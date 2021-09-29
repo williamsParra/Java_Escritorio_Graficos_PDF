@@ -1,5 +1,6 @@
 package controlador;
 
+import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
@@ -13,6 +14,12 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import modelo.ModeloGrafico;
 import modelo.ValidadorDatos;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.category.DefaultCategoryDataset;
+import org.jfree.data.general.DefaultPieDataset;
 import vista.JDModificar;
 
 /**
@@ -25,7 +32,7 @@ public class ControladorGrafico {
 
     private javax.swing.JTextField txtTitulo;
     private javax.swing.JTextField txtValor;
-    private javax.swing.JPanel panelGrafico;
+    private javax.swing.JPanel jpanelGrafico;
     private ModeloGrafico modelo;
     private javax.swing.JTable jtTabla;
     private javax.swing.JComboBox jCombo;
@@ -39,7 +46,7 @@ public class ControladorGrafico {
     public ControladorGrafico(JTextField titulo, JTextField valor, JPanel panelGrafico, JTable tabla, JComboBox combo, JButton btnAgregar, JButton btnGuardar) {
         this.txtTitulo = titulo;
         this.txtValor = valor;
-        this.panelGrafico = panelGrafico;
+        this.jpanelGrafico = panelGrafico;
         this.modelo = new ModeloGrafico();
         this.jtTabla = tabla;
         this.jCombo = combo;
@@ -58,6 +65,7 @@ public class ControladorGrafico {
             public void actionPerformed(ActionEvent e) {
                 System.out.println("boton agregar precionado");
                 capturarDato();
+                dibujarGrafico();
             }
         });
 
@@ -66,7 +74,7 @@ public class ControladorGrafico {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("boton guardar precionado");
-                guardarPDF();
+                guardarPDF();                
             }
         });
 
@@ -75,6 +83,7 @@ public class ControladorGrafico {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("el valor de combo box cambio a : " + jCombo.getSelectedItem().toString());
+                dibujarGrafico();
             }
         });
 
@@ -84,6 +93,7 @@ public class ControladorGrafico {
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Popup menu modificar pulsado");
                 modificarDato();
+                dibujarGrafico();
             }
         });
 
@@ -93,6 +103,7 @@ public class ControladorGrafico {
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Popup menu eliminar pulsado");
                 eliminarDato();
+                dibujarGrafico();
             }
         });
 
@@ -105,6 +116,49 @@ public class ControladorGrafico {
 
     private void dibujarGrafico() {
         System.out.println("este metodo dibujara el grafico en pantalla");
+
+        if (jCombo.getSelectedIndex() == 0) {
+            dibujarGraficoBarras();
+        }
+        if(jCombo.getSelectedIndex() == 1){
+            dibujarGraficoPie();
+        }
+
+    }
+
+    private void dibujarGraficoPie() {
+        DefaultPieDataset datosGrafico = new DefaultPieDataset();
+
+        for (int i = 0; i < jtTabla.getRowCount(); i++) {
+            datosGrafico.setValue(jtTabla.getValueAt(i, 0).toString(), Integer.parseInt(jtTabla.getValueAt(i, 1).toString()));
+        }
+        JFreeChart grafico = ChartFactory.createPieChart("Grafico",datosGrafico, true, true, true);
+        ChartPanel panelGrafico = new ChartPanel(grafico);
+        panelGrafico.setPreferredSize(jpanelGrafico.getSize());
+
+        jpanelGrafico.removeAll();
+        jpanelGrafico.setLayout(new BorderLayout());
+        jpanelGrafico.add(panelGrafico, BorderLayout.CENTER);
+        jpanelGrafico.validate();
+        jpanelGrafico.repaint();
+
+    }
+
+    private void dibujarGraficoBarras() {
+        DefaultCategoryDataset datosGrafico = new DefaultCategoryDataset();
+        //capturando datos
+        for (int i = 0; i < jtTabla.getRowCount(); i++) {
+            datosGrafico.setValue(Integer.parseInt(jtTabla.getValueAt(i, 1).toString()), jtTabla.getValueAt(i, 0).toString(), "");
+        }
+        JFreeChart grafico = ChartFactory.createBarChart3D("Grafico", "", "Valores", datosGrafico, PlotOrientation.VERTICAL, true, true, true);
+        ChartPanel panelGrafico = new ChartPanel(grafico);
+        panelGrafico.setPreferredSize(jpanelGrafico.getSize());
+
+        jpanelGrafico.removeAll();
+        jpanelGrafico.setLayout(new BorderLayout());
+        jpanelGrafico.add(panelGrafico, BorderLayout.CENTER);
+        jpanelGrafico.validate();
+        jpanelGrafico.repaint();
     }
 
     private void limpiarGrafico() {
