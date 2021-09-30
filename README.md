@@ -16,7 +16,9 @@ El proyecto será desarrollado en el lenguaje de programación **java** el cual 
 Para agilizar el desarrollo se **utilizarán las siguientes librerías**:
 
 - **jFreechart 1.0.19** (librería para generar gráficos)
+- **jcommon-1.0.23**    (librería complemento de JFreechart)
 - **itextpdf 5.5.13.2** (librería para generar archivos en formato PDF)
+
 
 la finalidad del proyecto es **programar y divertirme**, pues estoy terminando mi carrera de analista programador computacional y necesito seguir aprendiendo y pulir mis habilidades desarrollando software.
 
