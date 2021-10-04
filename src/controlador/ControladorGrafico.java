@@ -12,6 +12,7 @@ import javax.swing.JPopupMenu;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
+import modelo.Grafico;
 import modelo.ModeloGrafico;
 import modelo.ValidadorDatos;
 import org.jfree.chart.ChartFactory;
@@ -20,6 +21,7 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.DefaultPieDataset;
+import vista.JDGuardar;
 import vista.JDModificar;
 
 /**
@@ -112,53 +114,24 @@ public class ControladorGrafico {
     private void guardarPDF() {
         //este metodo guardara el grafico en pdf en el escritorio del usuario.
         System.out.println("metodo GuardarPDF ejecutado");
+        dibujarGrafico();
+        JDGuardar guardar = new JDGuardar(null,true);
+        guardar.setTabla(jtTabla);
+        guardar.setModalidad(jCombo.getSelectedIndex());
+        guardar.dibujarGrafico();
+        guardar.setVisible(true);
     }
 
     private void dibujarGrafico() {
         System.out.println("este metodo dibujara el grafico en pantalla");
 
         if (jCombo.getSelectedIndex() == 0) {
-            dibujarGraficoBarras();
+            Grafico.dibujarGraficoBarras(jtTabla, jpanelGrafico);            
         }
         if(jCombo.getSelectedIndex() == 1){
-            dibujarGraficoPie();
+            Grafico.dibujarGraficoPie(jtTabla, jpanelGrafico);            
         }
 
-    }
-
-    private void dibujarGraficoPie() {
-        DefaultPieDataset datosGrafico = new DefaultPieDataset();
-
-        for (int i = 0; i < jtTabla.getRowCount(); i++) {
-            datosGrafico.setValue(jtTabla.getValueAt(i, 0).toString(), Integer.parseInt(jtTabla.getValueAt(i, 1).toString()));
-        }
-        JFreeChart grafico = ChartFactory.createPieChart("Grafico",datosGrafico, true, true, true);
-        ChartPanel panelGrafico = new ChartPanel(grafico);
-        panelGrafico.setPreferredSize(jpanelGrafico.getSize());
-
-        jpanelGrafico.removeAll();
-        jpanelGrafico.setLayout(new BorderLayout());
-        jpanelGrafico.add(panelGrafico, BorderLayout.CENTER);
-        jpanelGrafico.validate();
-        jpanelGrafico.repaint();
-
-    }
-
-    private void dibujarGraficoBarras() {
-        DefaultCategoryDataset datosGrafico = new DefaultCategoryDataset();
-        //capturando datos
-        for (int i = 0; i < jtTabla.getRowCount(); i++) {
-            datosGrafico.setValue(Integer.parseInt(jtTabla.getValueAt(i, 1).toString()), jtTabla.getValueAt(i, 0).toString(), "");
-        }
-        JFreeChart grafico = ChartFactory.createBarChart3D("Grafico", "", "Valores", datosGrafico, PlotOrientation.VERTICAL, true, true, true);
-        ChartPanel panelGrafico = new ChartPanel(grafico);
-        panelGrafico.setPreferredSize(jpanelGrafico.getSize());
-
-        jpanelGrafico.removeAll();
-        jpanelGrafico.setLayout(new BorderLayout());
-        jpanelGrafico.add(panelGrafico, BorderLayout.CENTER);
-        jpanelGrafico.validate();
-        jpanelGrafico.repaint();
     }
 
     private void limpiarGrafico() {

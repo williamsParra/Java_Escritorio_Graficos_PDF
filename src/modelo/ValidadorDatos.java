@@ -24,7 +24,7 @@ public class ValidadorDatos {
         }
         //comprobar que el campo valor solo sea numerico
         if (txtValor.getText().length() != 0) {
-            if (!txtValor.getText().matches("[+-]?\\d*(\\.\\d+)?")) {
+            if (!txtValor.getText().matches("[+-]?\\d*(\\\\d+)?")) {
                 JOptionPane.showMessageDialog(null, "Valor solo puede contener numeros", "Error!", JOptionPane.ERROR_MESSAGE);
                 correcto = false;
             }

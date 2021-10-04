@@ -4,7 +4,13 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/Nukero/Documents/NetBeansProjects/Java_Escritorio_Graficos_PDF/Java_Escritorio_Graficos_PDF/src/controlador/ControladorGrafico.java</file>
+            <file>file:/C:/Users/Nukero/Documents/NetBeansProjects/Java_Escritorio_Graficos_PDF/Java_Escritorio_Graficos_PDF/src/modelo/Grafico.java</file>
+            <file>file:/C:/Users/Nukero/Documents/NetBeansProjects/Java_Escritorio_Graficos_PDF/Java_Escritorio_Graficos_PDF/src/modelo/Pdf.java</file>
+            <file>file:/C:/Users/Nukero/Documents/NetBeansProjects/Java_Escritorio_Graficos_PDF/Java_Escritorio_Graficos_PDF/src/vista/JDModificar.java</file>
+            <file>file:/C:/Users/Nukero/Documents/NetBeansProjects/Java_Escritorio_Graficos_PDF/Java_Escritorio_Graficos_PDF/src/modelo/ValidadorDatos.java</file>
+            <file>file:/C:/Users/Nukero/Documents/NetBeansProjects/Java_Escritorio_Graficos_PDF/Java_Escritorio_Graficos_PDF/src/modelo/ModeloGrafico.java</file>
             <file>file:/C:/Users/Nukero/Documents/NetBeansProjects/Java_Escritorio_Graficos_PDF/Java_Escritorio_Graficos_PDF/src/vista/Principal.java</file>
+            <file>file:/C:/Users/Nukero/Documents/NetBeansProjects/Java_Escritorio_Graficos_PDF/Java_Escritorio_Graficos_PDF/src/vista/JDGuardar.java</file>
         </group>
     </open-files>
 </project-private>
